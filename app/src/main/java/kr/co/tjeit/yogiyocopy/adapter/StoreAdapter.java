@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,8 @@ public class StoreAdapter extends ArrayAdapter<StoreData> {
         // 실제 데이터? data (StoreData) 변수
         // data가 가진 메소드들 중 getter를 활용하는 경우가 많다.
 
+        Glide.with(mContext).load(myStoreData.getImagePath()).into(storeImg);
+
         storeNameTxt.setText(myStoreData.getStoreName());
         storeRateTxt.setText(myStoreData.getAvgRating()+"점 / "+myStoreData.getReviews().size()+"개의 리뷰");
         int openHour = myStoreData.getOpenTime() / 100;
@@ -104,11 +108,16 @@ public class StoreAdapter extends ArrayAdapter<StoreData> {
         stars.add(starImg3);
         stars.add(starImg4);
         stars.add(starImg5);
+
+
+        for (ImageView iv : stars) {
+            iv.setImageResource(R.drawable.black_star);
+        }
+
         int rating = (int) myStoreData.getAvgRating();
         for (int i=0; i<rating; i++) {
             stars.get(i).setImageResource(R.drawable.gold_star);
         }
-
 
 
 
